@@ -28,6 +28,26 @@ OpenClaw Gateway 是一个现代化的Web界面，让你能够通过浏览器轻
 - **Web服务器**: PHP内置开发服务器 或 Apache/Nginx
 - **PHP版本**: PHP 7.4+
 
+## 安全配置
+
+**重要：在使用前必须配置API令牌！**
+
+1. **获取Proxmox API令牌**:
+   - 登录Proxmox VE Web界面
+   - 进入 `Datacenter` → `Authentication` → `API Tokens`
+   - 为用户 `root@pam` 创建新令牌
+   - 复制生成的完整令牌（格式：`username!token_name=token_value`）
+
+2. **配置PHP文件**:
+   - 打开 `test.php`, `start.php`, `start_simple.php`
+   - 找到 `$api_token = 'YOUR_PVE_API_TOKEN_HERE';` 行
+   - 替换为你的实际API令牌
+
+3. **设置文件权限**:
+   ```bash
+   chmod 600 /path/to/your/php/files/*.php
+   ```
+
 ## 文件说明
 
 - **`test.php`**: 基础控制面板，包含查看VM状态和暂停VM功能
@@ -48,22 +68,23 @@ php -S 0.0.0.0:8080
 
 ### 手动启动VM并设置自动暂停
 ```bash
-# 启动VM
+# 启动VM（替换YOUR_TOKEN为实际令牌）
 curl -k -X POST "https://192.168.88.22:8006/api2/json/nodes/pve/qemu/105/status/start" \
--H 'Authorization: PVEAPIToken=root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c'
+-H 'Authorization: PVEAPIToken=YOUR_TOKEN'
 
 # 设置20分钟后自动暂停
 (sleep 1200 && curl -k -X POST "https://192.168.88.22:8006/api2/json/nodes/pve/qemu/105/status/suspend" \
--H 'Authorization: PVEAPIToken=root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c' \
+-H 'Authorization: PVEAPIToken=YOUR_TOKEN' \
 -d "todisk=1") > /tmp/auto_suspend.log 2>&1 &
 ```
 
 ## 安全注意事项
 
-- **API令牌保护**: README和PHP文件中包含的API令牌仅用于演示，请在生产环境中使用安全的令牌管理
+- **API令牌保护**: 所有敏感令牌已从代码中移除，请务必使用自己的令牌
 - **文件权限**: 确保PHP文件权限设置为600，防止令牌泄露
 - **网络访问**: 建议仅在内网使用或配合防火墙限制访问
 - **HTTPS**: 生产环境中务必启用HTTPS加密
+- **定期轮换**: 定期更换Proxmox API令牌以提高安全性
 
 ## 开发状态
 

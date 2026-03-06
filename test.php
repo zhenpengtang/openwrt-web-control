@@ -16,7 +16,8 @@ if (isset($_GET['action'])) {
     $pve_port = '8006';
     $vm_id = '105';
     $node_name = 'pve';
-    $api_token = 'root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c';
+    // SECURITY: Replace with your actual PVE API token
+    $api_token = 'YOUR_PVE_API_TOKEN_HERE';
     
     if ($_GET['action'] === 'get_vm_status') {
         // Build the API URL for status

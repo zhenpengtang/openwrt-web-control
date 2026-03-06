@@ -16,7 +16,8 @@ if (isset($_GET['action'])) {
     $pve_port = '8006';
     $vm_id = '105';
     $node_name = 'pve';
-    $api_token = 'root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c';
+    // TODO: Replace with your actual PVE API token
+    $api_token = 'YOUR_PVE_API_TOKEN_HERE';
     
     if ($_GET['action'] === 'start_vm') {
         // Build the API URL for start
@@ -184,7 +185,7 @@ if (isset($_GET['action'])) {
             <h3>20分钟后自动暂停VM的命令</h3>
             <p>VM启动成功后，在终端中运行以下命令来设置20分钟（1200秒）后的自动暂停：</p>
             <pre>sleep 1200 && curl -k -X POST "https://192.168.88.22:8006/api2/json/nodes/pve/qemu/105/status/suspend" \
--H 'Authorization: PVEAPIToken=root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c' \
+-H 'Authorization: PVEAPIToken=YOUR_PVE_API_TOKEN_HERE' \
 -d "todisk=1"</pre>
             <p><strong>注意：</strong>这个命令会在当前终端中运行，如果关闭终端，定时器也会停止。</p>
         </div>

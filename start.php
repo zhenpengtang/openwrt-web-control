@@ -16,7 +16,8 @@ if (isset($_GET['action'])) {
     $pve_port = '8006';
     $vm_id = '105';
     $node_name = 'pve';
-    $api_token = 'root@pam!fZ7m2mVBa4vwhlgw=057d76a4-4d2c-4870-afce-05ceb3303e9c';
+    // TODO: Replace with your actual PVE API token
+    $api_token = 'YOUR_PVE_API_TOKEN_HERE';
     
     if ($_GET['action'] === 'start_vm') {
         // Build the API URL for start
@@ -122,7 +123,8 @@ sleep(1200); // Wait 20 minutes
 \$pve_port = '{$pve_port}';
 \$vm_id = '{$vm_id}';
 \$node_name = '{$node_name}';
-\$api_token = '{$api_token}';
+// TODO: Replace with your actual PVE API token
+\$api_token = 'YOUR_PVE_API_TOKEN_HERE';
 
 \$api_url = \"https://{\$pve_host}:{\$pve_port}/api2/json/nodes/{\$node_name}/qemu/{\$vm_id}/status/suspend\";
 
